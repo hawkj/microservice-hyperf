@@ -1,0 +1,112 @@
+version: '3'
+
+services:
+  hyperf-server-01:
+    build: ./service/hyperf
+    image: env_hyperf
+    container_name: rpc-server-01
+    hostname: rpc-server-01
+    command: php /usr/local/bin/ping.php
+    expose:
+      - 9501
+      - 9502
+    ports:
+      - "9501:9501"
+      - "9502:9502"
+
+    volumes:
+      - /opt/workspace/microservice-hyperf/rpc-server:/opt/workspace/microservice-hyperf/rpc-server
+    depends_on:
+      - mysql
+      - redis
+      - nacos
+    networks:
+      - ms
+
+  hyperf-client-01:
+    build: ./service/hyperf
+    image: env_hyperf
+    container_name: rpc-client-01
+    hostname: rpc-client-01
+    command: php /usr/local/bin/ping.php
+    expose:
+      - 9501
+      - 9502
+    ports:
+      - "9503:9501"
+      - "9504:9502"
+
+    volumes:
+      - /opt/workspace/microservice-hyperf/rpc-client:/opt/workspace/microservice-hyperf/rpc-client
+    depends_on:
+      - redis
+      - nacos
+    networks:
+      - ms
+
+  mysql:
+    image: mysql:5.7
+    hostname: mysql_local
+    container_name: mysql_local
+    environment:
+      - "MYSQL_ROOT_PASSWORD=test"
+      - "TZ=Asia/Shanghai"
+    volumes:
+      - /var/container_data/db/mysql:/var/lib/mysql
+      - /var/container_data/db/conf:/etc/mysql
+    expose:
+      - 3306
+    ports:
+      - "3306:3306"
+    networks:
+      - ms
+
+  redis:
+    image: redis:6.2
+    container_name: redis_local
+    hostname: redis_local
+    expose:
+      - 6379
+    ports:
+      - "6379:6379"
+    networks:
+      - ms
+
+  zipkin:
+    image: openzipkin/zipkin:2.22
+    container_name: zipkin
+    hostname: zipkin
+    ports:
+      - "9411:9411"
+    networks:
+      - ms
+
+  nacos:
+    image: nacos/nacos-server:2.0.2
+    container_name: nacos
+    hostname: nacos
+    depends_on:
+      - mysql
+    environment:
+      PREFER_HOST_MODE: nacos
+      SPRING_DATASOURCE_PLATFORM: mysql
+      MODE: standalone
+      MYSQL_SERVICE_HOST: mysql
+      MYSQL_SERVICE_DB_NAME: nacos
+      MYSQL_SERVICE_PORT: 3306
+      MYSQL_SERVICE_USER: root
+      MYSQL_SERVICE_PASSWORD: test
+      NACOS_APPLICATION_PORT: 8848
+      JVM_XMS: 512m
+      JVM_MMS: 320m
+    volumes:
+      - /var/container_data/nacos/custom/init.d:/home/nacos/init.d
+      - /var/container_data/nacos/custom/logs:/home/nacos/logs
+    expose:
+      - 8848
+    ports:
+      - "8848:8848"
+    networks:
+      - ms
+networks:
+  ms:
