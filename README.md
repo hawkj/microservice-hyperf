@@ -1,6 +1,6 @@
 # microservice-hyperf
 a devolepment environment of microservice base on hyperf
-基于hyperf搭建的微服务架构DEMO，用于如何hyperf微服务。
+基于hyperf搭建的微服务架构DEMO，用于了解如何用hyperf搭建微服务。
 
 # quick start
 ## 运行环境：
