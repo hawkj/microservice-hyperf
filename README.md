@@ -20,11 +20,13 @@ a devolepment environment of microservice base on hyperf。
  4. start rpc server : 
     1. go into rpc server container : docker exec -it rpc-server-01 /bin/sh
     2. change dir to rpc server workspace : cd /opt/workspace/microservice-hyperf/rpc-server/
-    3. start rpc server : php bin/hyperf.php start
+    3. run : composer update
+    4. start rpc server : php bin/hyperf.php start
  5. start rpc client : 
     1. go into rpc client container : docker exec -it rpc-client-01 /bin/sh
     2. change dir to rpc client workspace : cd /opt/workspace/microservice-hyperf/rpc-client/
-    3. start rpc client : php bin/hyperf.php start
+    3. run : composer update
+    4. start rpc client : php bin/hyperf.php start
  
 ## 看一下完整链路是否联通
     curl "http://localdev.com:9504/v1/api/test/test"
