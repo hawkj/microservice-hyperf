@@ -20,18 +20,22 @@ return [
             'driver' => Hyperf\ConfigNacos\NacosDriver::class,
             'merge_mode' => Hyperf\ConfigNacos\Constants::CONFIG_MERGE_OVERWRITE,
             'interval' => 3,
-            'default_key' => 'nacos_config',
+            'default_key' => env('APP_NAME'),
             'listener_config' => [
-                // dataId, group, tenant, type, content
                 'nacos_config' => [
-                    'tenant' => 'tenant', // corresponding with service.namespaceId
-                    'data_id' => 'hyperf-service-config',
+                    'tenant' => env('NACOS_NAMESPACE_ID'),
+                    'data_id' => env('APP_NAME') . '_' . env('APP_ENV'),
                     'group' => 'DEFAULT_GROUP',
+                    'type' => 'yaml'
                 ],
-                'nacos_config.data' => [
-                    'data_id' => 'hyperf-service-config-yml',
-                    'group' => 'DEFAULT_GROUP',
-                    'type' => 'yml',
+            ],
+            'client' => [
+                'host' => env('NACOS_HOST'),
+                'port' => env('NACOS_PORT'),
+                'username' => env('NACOS_USERNAME'),
+                'password' => env('NACOS_PASSWORD'),
+                'guzzle' => [
+                    'config' => null,
                 ],
             ],
         ],

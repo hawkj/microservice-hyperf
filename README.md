@@ -1,6 +1,14 @@
 # microservice-hyperf
 a devolepment environment of microservice base on hyperf。  
 基于hyperf搭建的微服务架构DEMO，用于了解如何用hyperf搭建微服务。
+## 项目中涉及技术关键字
+    1. docker-compose 单机模拟集群环境搭建
+    2. 雪花id生成方法
+    3. nacos 服务发现 & 服务注册
+    4. naces 配置中心使用 ( yaml 格式)
+    5. 链路追踪 基于zipkin
+    6. 协程非阻塞程序设计
+    7. 单元测试
 
 # quick start
 ## 运行环境：
@@ -54,6 +62,9 @@ wget --no-check-certificate --quiet \
 ## some service address:
  1. zipkin : http://localdev.com:9411/zipkin
  2. nacos : http://localdev.com:8848/
+
+
+
 
     
     

@@ -39,8 +39,7 @@ services:
     volumes:
       - /opt/workspace/microservice-hyperf/rpc-client:/opt/workspace/microservice-hyperf/rpc-client
     depends_on:
-      - redis
-      - nacos
+      - hyperf-server-01
     networks:
       - ms
 
