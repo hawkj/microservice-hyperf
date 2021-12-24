@@ -9,6 +9,7 @@ a devolepment environment of microservice base on hyperf。
     5. 链路追踪 基于zipkin
     6. 协程非阻塞程序设计
     7. 单元测试
+    8. json_rpc 通信协议
 
 # quick start
 ## 运行环境：
