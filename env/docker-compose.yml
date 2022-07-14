@@ -52,7 +52,7 @@ services:
       - "TZ=Asia/Shanghai"
     volumes:
       - /var/container_data/db/mysql:/var/lib/mysql
-      - /var/container_data/db/conf:/etc/mysql
+      - /var/container_data/db/conf:/etc/mysql/conf.d
     expose:
       - 3306
     ports:
